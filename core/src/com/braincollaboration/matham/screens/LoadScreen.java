@@ -9,14 +9,14 @@ import com.braincollaboration.matham.GameAssetManager;
  */
 public class LoadScreen implements Screen {
 
-    private void loadAsserts(){
+    private void loadAssets(){
         GameAssetManager.getInstance().load("badlogic.jpg", Texture.class);
     }
 
     @Override
     public void show() {
         GameAssetManager.getInstance().init();
-        loadAsserts();
+        loadAssets();
     }
 
     @Override
