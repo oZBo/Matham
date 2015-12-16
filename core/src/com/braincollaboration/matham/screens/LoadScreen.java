@@ -10,7 +10,7 @@ import com.braincollaboration.matham.GameAssetManager;
 public class LoadScreen implements Screen {
 
     private void loadAssets(){
-        GameAssetManager.getInstance().load("badlogic.jpg", Texture.class);
+        GameAssetManager.getInstance().load("hero.png", Texture.class);
     }
 
     @Override

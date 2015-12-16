@@ -1,38 +1,44 @@
 package com.braincollaboration.matham.screens;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.braincollaboration.matham.GameAssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.braincollaboration.matham.MovementComponent;
+import com.braincollaboration.matham.MovementSystem;
+import com.braincollaboration.matham.PositionComponent;
+import com.braincollaboration.matham.RenderComponent;
+import com.braincollaboration.matham.RenderSystem;
 
 /**
  * Created by eandreychenko on 14.12.2015.
  */
 public class MainMenuScreen implements Screen {
 
-    SpriteBatch batch;
-    Texture texture;
+    Engine engine;
+    OrthographicCamera camera;
 
     @Override
     public void show() {
-        batch = new SpriteBatch();
-        texture = GameAssetManager.getInstance().get("badlogic.jpg");
+        camera = new OrthographicCamera(640, 480);
+
+        engine = new Engine();
+
+        engine.addSystem(new MovementSystem());
+        engine.addSystem(new RenderSystem(camera));
+
+        Entity entity = new Entity();
+        entity.add(new PositionComponent());
+        entity.add(new MovementComponent(8f, 32f));
+        entity.add(new RenderComponent(new Vector2()));
+
+        engine.addEntity(entity);
     }
 
     @Override
     public void render(float delta) {
-
-        Gdx.gl.glClearColor(0, 1, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(
-                texture,
-                Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - texture.getHeight() / 2
-        );
-        batch.end();
+        engine.update(delta);
     }
 
     @Override

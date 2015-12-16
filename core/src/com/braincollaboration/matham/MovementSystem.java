@@ -10,8 +10,8 @@ public class MovementSystem extends IteratingSystem {
 
     private Random random = new Random();
 
-    public MovementSystem(Family family) {
-        super(family);
+    public MovementSystem() {
+        super(Family.all(PositionComponent.class, MovementComponent.class).get());
     }
 
     @Override

@@ -24,8 +24,7 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        Family.Builder family = Family.all(PositionComponent.class, RenderComponent.class);
-        entities = engine.getEntitiesFor(family.get());
+        entities = engine.getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class).get());
     }
 
     @Override
